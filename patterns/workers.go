@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-const numberOfWorkers = 3
+const numberOfWorkers = 5
 
 const numberOfJobs = 2
 
@@ -21,8 +21,8 @@ func main() {
 	///Create  5 Jobs
 	go func() {
 		defer wg.Done()
-		for i := 0; i < 5; i++ {
-			time.Sleep(time.Second * 2)
+		for i := 0; i < 10; i++ {
+			time.Sleep(time.Second * 1)
 			ch <- i
 		}
 		close(ch)
@@ -45,10 +45,8 @@ func processingJob(id int, ch chan int) {
 		if !ok {
 			break
 		}
-		fmt.Printf("Worker %d starts job %d", id, v)
-		fmt.Println()
-		time.Sleep(time.Second * 4)
-		fmt.Printf("Worker %d done job %d", id, v)
-		fmt.Println()
+		fmt.Printf("Worker %d starts job %d\n", id, v)
+		time.Sleep(time.Second * 2)
+		fmt.Printf("Worker %d done job %d\n", id, v)
 	}
 }
